@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<scene>
+  <camera name="main" type="perspective">
+    <position>0 0 7</position>
+    <viewDir>0 0 -1</viewDir>
+    <focalLength>1.0</focalLength>
+    <imagePlaneWidth>0.5</imagePlaneWidth>
+  </camera>
+
+  <!-- Basic point light source placed just above the camera. -->
+  <light type="point">
+    <position>100 100 75</position>
+    <intensity>1.0 0.9804 0.9569</intensity>
+  </light>
+
+  <!-- Lambertian "Chalk" Shaders -->
+  <shader name="white_chalk" type="Lambertian">
+    <diffuse>0.957 0.957 0.941</diffuse>
+  </shader>
+  
+  <shader name="red_chalk" type="Lambertian">
+    <diffuse>0.929 0.467 0.467</diffuse>
+  </shader>
+
+  <shader name="blue_chalk" type="Lambertian">
+    <diffuse>0.580 0.753 0.8</diffuse>
+  </shader>
+
+  <shader name="yellow_chalk" type="Lambertian">
+    <diffuse>0.961 0.976 0.678</diffuse>
+  </shader>
+
+  <shape name="sphere1" type="sphere">
+    <shader ref="white_chalk" />
+    <center>-1.5 -1.5 -5</center>
+    <radius>1</radius>
+  </shape>
+
+  <shape name="sphere2" type="sphere">
+    <shader ref="red_chalk" />
+    <center>1.5 -1.5 -5</center>
+    <radius>1</radius>
+  </shape>
+  
+  <shape name="sphere3" type="sphere">
+    <shader ref="yellow_chalk" />
+    <center>1.5 1.5 -5</center>
+    <radius>1</radius>
+  </shape>
+  
+  <shape name="sphere4" type="sphere">
+    <shader ref="blue_chalk" />
+    <center>-1.5 1.5 -5</center>
+    <radius>1</radius>
+  </shape>
+
+</scene>
