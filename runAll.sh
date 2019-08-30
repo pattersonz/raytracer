@@ -6,7 +6,7 @@ make
 rm ../XMLS/*.png
 for file in ../XMLS/*
 do
-  ./programmingRayObjectIntersectionASN/rayObjectIntersection -i"$file" -w250 -h250
+  ./render/Render -i"$file" -w250 -h250 --rayTracer -r1
 done
 clear
 echo "COMPLETE

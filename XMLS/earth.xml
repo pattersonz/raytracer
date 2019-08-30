@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--  A scene with a little bit of everything.
+      Namely, 
+  -->
+<scene>
+
+  <sceneParameters>
+    <bgColor>0.5 0.5 0.6</bgColor>
+<!--    <envMapPrefix>data/startfield_</envMapPrefix> -->
+  </sceneParameters>
+
+  <!-- Simple camera placed back from the origin looking in -Z direction -->
+  <camera name="main" type="perspective">
+    <position>0 8.0 -15.0</position>
+    <lookatPoint>0 4.0 -5.0</lookatPoint>
+    <focalLength>0.35</focalLength>
+    <imagePlaneWidth>0.5</imagePlaneWidth>
+  </camera>
+
+  <!-- -->
+  <!-- Lights -->
+  <!-- -->
+  <light type="point">
+    <position>10.0 20.0 -20.0</position>
+    <intensity>0.7 0.7 0.7</intensity>
+  </light>
+
+  <!-- Textures -->
+  <texture name="EarthDiffuse" type="image">
+    <!-- Obtained from http://planetpixelemporium.com/earth.html -->
+    <sourcefile>images/earth_daymap_2k.png</sourcefile>
+  </texture>
+
+  <texture name="EarthSpecular" type="image">
+    <!-- Obtained from http://planetpixelemporium.com/earth.html -->
+    <sourcefile>images/earth_specular_map_2k.png</sourcefile>
+  </texture>
+
+  <shader name="EarthShader" type="BlinnPhong">
+    <diffuse tex="EarthDiffuse">1.0 1.0 1.0</diffuse>
+    <specular tex="EarthSpecular">1 1 1</specular>
+    <phongExp>64.0</phongExp>
+    <!-- how to specify normal map and other data sources? -->
+    <!-- <normal source="EarthNMap"></normal> -->
+  </shader>
+
+  <shader name="blueMat" type="Lambertian">
+    <diffuse>0.4 0.4 1.0</diffuse>
+  </shader>
+  <instance name="spheroid" type="sphere">
+    <shader ref="blueMat"/>
+    <center>0.0 0.0 0.0</center>
+    <radius>1.0</radius>
+  </instance>
+
+  <shape name="Earth" type="instance" id="spheroid">
+    <shader ref="EarthShader"/>
+    <transform name="xform1">
+      <translate>0.0 4.0 -5.0</translate>
+      <rotate axis="Z">23.5</rotate>
+      <rotate axis="Y">0.0</rotate>
+      <scale>5 5 5</scale>
+    </transform>
+  </shape>
+
+</scene>

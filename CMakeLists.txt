@@ -80,6 +80,7 @@ add_subdirectory(examples)
 #
 # This builds a simple OpenGL example that you can use to get started with OpenGL.
 #
+add_subdirectory(graphicsLib)
 add_subdirectory(OpenGL)
 
 #
@@ -101,5 +102,6 @@ add_subdirectory(utests)
 # Project - Ray-Object Intersection basic testing of the raytracer library
 #
 
-add_subdirectory(rayTraceLib)
-add_subdirectory(programmingRayObjectIntersectionASN)
+add_subdirectory(rayTracer)
+add_subdirectory(rasterize)
+add_subdirectory(render)

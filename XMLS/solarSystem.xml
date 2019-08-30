@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--  Comments can be embedded as well. -->
+<scene bgColor="0.7 0.7 0.9">
+
+  <camera name="main" type="perspective">
+    <position>-50 50.0 48.0</position>
+    <viewDir>3.0 -3.0 -5.0</viewDir>
+    <focalLength>0.50</focalLength>
+    <imagePlaneWidth>0.5</imagePlaneWidth>
+  </camera>
+
+  <light type="point">
+    <position>-50.0 50.0 48.0</position>
+    <intensity>0.8 0.8 0.8</intensity>
+    <normal>4.0 -4.0 -3.0</normal>
+    <width>1.0</width>
+    <length>1.0</length>
+  </light>
+
+  <light type="area">
+    <position>0.0 50.0 0.0</position>
+    <intensity>1.0 1.0 1.0</intensity>
+    <normal>0.0 -1.0 0.0</normal>
+    <width>4.0</width>
+    <length>4.0</length>
+  </light>
+  
+  <texture name="calibrationTex" type="image">
+    <sourcefile>images/textureCalibrationNumberGrid.png</sourcefile>
+  </texture>
+
+  <shader name="greyTextured" type="Lambertian">
+    <diffuse tex="calibrationTex">1.0 1.0 1.0</diffuse>
+  </shader>
+
+  <shader name="greyMirroredTextured" type="BlinnPhongMirrored">
+    <diffuse tex="calibrationTex">1.0 1.0 1.0</diffuse>
+    <specular>1 1 1</specular>
+    <phongExp>32.0</phongExp>
+    <mirrorCoef>0.8</mirrorCoef>
+    <roughness>0.1</roughness>
+  </shader>
+
+  <shape name="ground" type="box">
+    <shader ref="greyTextured"/>
+    <minPt>-50.0 -0.5 -50.0</minPt>
+    <maxPt>50.0 0.0 50.0</maxPt>
+  </shape>
+
+  <shape name="backWall" type="box">
+    <shader ref="greyMirroredTextured"/>
+    <minPt>-50.0 0.0 -50.5</minPt>
+    <maxPt>50.0 50.0 -50.0</maxPt>
+  </shape>  
+
+  <!-- ******** -->
+  <!-- Textures -->
+  <!-- Obtained from https://www.solarsystemscope.com/textures/ -->
+  <!-- ******** -->
+  <texture name="MoonDiffuse" type="image">
+    <sourcefile>images/moon_2k.png</sourcefile>
+  </texture>
+
+  <texture name="EarthDiffuse" type="image">
+    <sourcefile>images/earth_daymap_2k.png</sourcefile>
+  </texture>
+  <texture name="EarthSpecular" type="image">
+    <sourcefile>images/earth_specular_map_2k.png</sourcefile>
+  </texture>
+
+  <texture name="VenusDiffuse" type="image">
+    <sourcefile>images/venus_atmosphere_2k.png</sourcefile>
+  </texture>
+
+  <texture name="MarsDiffuse" type="image">
+    <sourcefile>images/mars_2k.png</sourcefile>
+  </texture>
+
+  <texture name="JupiterDiffuse" type="image">
+    <sourcefile>images/jupiter_2k.png</sourcefile>
+  </texture>
+
+  <texture name="UranusDiffuse" type="image">
+    <sourcefile>images/uranus_2k.png</sourcefile>
+  </texture>
+  
+  <texture name="NeptuneDiffuse" type="image">
+    <sourcefile>images/neptune_2k.png</sourcefile>
+  </texture>
+  
+  <!-- SHADERS -->
+  <shader name="EarthShader" type="BlinnPhong">
+    <diffuse tex="EarthDiffuse">1.0 1.0 1.0</diffuse>
+    <specular tex="EarthSpecular">1 1 1</specular>
+    <phongExp>64.0</phongExp>
+    <!-- how to specify normal map and other data sources? -->
+    <!-- <normal source="EarthNMap"></normal> -->
+  </shader>
+  <shader name="MoonShader" type="Lambertian">
+    <diffuse tex="MoonDiffuse">1.0 1.0 1.0</diffuse>
+  </shader>
+  <shader name="VenusShader" type="Lambertian">
+    <diffuse tex="VenusDiffuse">1.0 1.0 1.0</diffuse>
+  </shader>
+  <shader name="MarsShader" type="Lambertian">
+    <diffuse tex="MarsDiffuse">1.0 1.0 1.0</diffuse>
+  </shader>
+  <shader name="JupiterShader" type="Lambertian">
+    <diffuse tex="JupiterDiffuse">1.0 1.0 1.0</diffuse>
+  </shader>
+  <shader name="UranusShader" type="Lambertian">
+    <diffuse tex="UranusDiffuse">1.0 1.0 1.0</diffuse>
+  </shader>
+  <shader name="NeptuneShader" type="Lambertian">
+    <diffuse tex="NeptuneDiffuse">1.0 1.0 1.0</diffuse>
+  </shader>
+
+  <!-- *@*@*@*@*@*@*@*@*@*@
+       Planets/Moons/Objects
+       *@*@*@*@*@*@*@*@*@*@ -->
+  <shader name="blueMat" type="Lambertian">
+    <diffuse>0.4 0.4 1.0</diffuse>
+  </shader>
+  <instance name="spheroid" type="sphere">
+    <shader ref="blueMat"/>
+    <center>0.0 0.0 0.0</center>
+    <radius>1.0</radius>
+  </instance>
+
+  <!-- Earth -->
+  <shape name="Earth" type="instance" id="spheroid">
+    <shader ref="EarthShader"/>
+    <transform name="xform1">
+      <translate>0.0 5.0 0.0</translate>
+      <rotate axis="Z">23.5</rotate>
+      <rotate axis="Y">0.0</rotate>
+      <scale>5 5 5</scale>
+    </transform>
+  </shape>
+
+  <!-- Moon -->
+  <shape name="Moon" type="instance" id="spheroid">
+    <shader ref="MoonShader"/>
+    <transform name="xform1">
+      <translate>-7.0 6.0 1.5</translate>
+      <rotate axis="Y">0.0</rotate>
+    </transform>
+  </shape>
+
+  <!-- Venus -->
+  <shape name="Venus" type="instance" id="spheroid">
+    <shader ref="VenusShader"/>
+    <transform name="xform1">
+      <translate>8.0 5.0 9.0</translate>
+      <rotate axis="Y">0.0</rotate>
+      <scale>4.8 4.8 4.8</scale>
+    </transform>
+  </shape>
+
+  <!-- Mars -->
+  <shape name="Mars" type="instance" id="spheroid">
+    <shader ref="MarsShader"/>
+    <transform name="xform1">
+      <translate>-8.0 4.0 9.0</translate>
+      <rotate axis="Y">0.0</rotate>
+      <scale>2.8 2.8 2.8</scale>
+    </transform>
+  </shape>
+
+  <!-- Jupiter -->
+  <shape name="Jupiter" type="instance" id="spheroid">
+    <shader ref="JupiterShader"/>
+    <transform name="xform1">
+      <translate>20.0 19.0 -18.0</translate>
+      <rotate axis="Y">60.0</rotate>
+      <scale>18 18 18</scale>
+    </transform>
+  </shape>
+
+  <!-- Neptune -->
+  <shape name="Neptune" type="instance" id="spheroid">
+    <shader ref="NeptuneShader"/>
+    <transform name="xform1">
+      <translate>-17.0 14.0 -23.0</translate>
+      <rotate axis="Y">80.0</rotate>
+      <scale>13 13 13</scale>
+    </transform>
+  </shape>
+
+  <!-- Uranus -->
+  <shape name="Uranus" type="instance" id="spheroid">
+    <shader ref="UranusShader"/>
+    <transform name="xform1">
+      <translate>-32.0 11.0 5.0</translate>
+      <rotate axis="Y">0.0</rotate>
+      <scale>11 11 11</scale>
+    </transform>
+  </shape>  
+
+</scene>

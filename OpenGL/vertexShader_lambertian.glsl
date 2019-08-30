@@ -11,13 +11,15 @@ out vec3 lightDir;
 
 
 uniform mat4 projMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 modelMatrix;
 
 void main(void)
 {
 	vColor = in_Color;
 	vNormal = in_Normal;
 	lightDir = normalize( vec3(25.0,0,10.0) - in_Position);
-	gl_Position = projMatrix * vec4(in_Position, 1.0);
+	gl_Position = projMatrix * viewMatrix * modelMatrix * vec4(in_Position, 1.0);
 }
 
 
